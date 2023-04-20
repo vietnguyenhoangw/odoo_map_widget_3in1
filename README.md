@@ -48,9 +48,10 @@ Odoo Map Widget allows you to show the location with marker on the map through l
 ## Usage Example
 
 1. Add 2 fields are lat and long (following bellow example are main_latitude and main_longitude).
-2. Create <widget> tag and add properties for this widget (Properties Detail). In below example we have props map_id, name, style, origin_lat and origin_long
+2. Create <widget> tag and add properties for this widget (Properties Detail). In below example we have props map_id, name, style, origin_lat and origin_long.
 
 <b>:triangular_flag_on_post:Noticed: </b> We need to define the field with lat and long first, then put the lat and long into map widget with the same name value.
+
 <img src="https://user-images.githubusercontent.com/43869718/233136024-f7c30b54-451d-4878-a9ce-32835bd835d3.png" width="600" title="usage-example">
 
 
@@ -63,7 +64,7 @@ Odoo Map Widget allows you to show the location with marker on the map through l
 |origin_lat   | First location point **latitude** field name | **(string)** latitude field name in model  |
 |origin_long   | First location point **longitude** field name  | **(string)** longitude field name in model  |
 |style   | HTML style value  | **(string)** "width: 100vw; height: 70vh;..."  |
-|show_reload_button   | **(string boolean)** Display reload button status, "false" is default value | **(string)** "true"  |
+|show_reload_button   | Display reload button status, "false" is default value | **(string boolean)** "true"  |
 
 **If you want to add more than 1 location point, following bellow properties**
 
