@@ -72,7 +72,6 @@ class MapWidget extends Component {
 		this.notificationService = useService("notification");
 		this.state = useState({
 			html_map_widget_tag: markup('<div class="mapbox-container" id="mapbox0"></div>'),
-			locationIndexList: [],
 			markersOnMap: [],
 		});
 		this.map;
@@ -196,7 +195,7 @@ class MapWidget extends Component {
 		try {
 			const originLocation = this.getOriginLatLong();
 			if (this.map) { this.map.remove() }
-			this.map = L.map(`map${this.props.map_id}`, { zoomControl: true, zoom: 1, zoomAnimation: false, fadeAnimation: true, markerZoomAnimation: true, maxBoundsViscosity: 1.0}).setView([originLocation.originLat, originLocation.originLong], 4);
+			this.map = L.map(`map${this.props.map_id}`, { zoomControl: true, zoom: 1, zoomAnimation: false, fadeAnimation: true, markerZoomAnimation: true, maxBoundsViscosity: 1.0}).setView([originLocation.originLat, originLocation.originLong], his.props.zoomLevel || 8);
 			L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 			}).addTo(this.map);
@@ -216,7 +215,7 @@ class MapWidget extends Component {
 				lng: parseFloat(originLocation.originLong)
 			};
 			this.map = new window.google.maps.Map(window.document.getElementById(`map${this.props.map_id}`), {
-				zoom: 15,
+				zoom: this.props.zoomLevel || 8,
 				center: myLatLng
 			});
 			this.onDrawMarker();
