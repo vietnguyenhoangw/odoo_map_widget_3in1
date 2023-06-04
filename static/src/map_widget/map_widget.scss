@@ -56,9 +56,10 @@
 .mapboxgl-popup-content {
     text-align: center;
     font-family: 'Open Sans', sans-serif;
+    padding: 5px !important;
     
     p {
         margin-bottom: 0px;
-        margin-top: 10px;
+        margin-top: 8px;
     }
 }

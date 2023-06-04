@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates xml:space="preserve">
     <t t-name="map_widget.MapWidget" owl="1">
-        <t t-if="props.show_reload_button">
-            <button t-on-click="onReloadMap" class="btn btn-primary btn-sm mb-2">Reload map</button>
-        </t>
         <t t-out="state.html_map_widget_tag"/>
     </t>
 </templates>

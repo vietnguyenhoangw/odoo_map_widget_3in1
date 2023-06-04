@@ -4,19 +4,25 @@ import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { loadJS, loadCSS } from "@web/core/assets";
 
-const { Component, useState, onWillStart, markup, onError, onMounted } = owl;
+const { 
+	Component, useState, onWillStart, markup, 
+	onError, onMounted, onWillUpdateProps } = owl;
 
 class MapWidget extends Component {
-	async onReloadMap() {
-		await this.loadMapByType()
-	}
-	
 	async onGetMapBoxKey() {
 		return await this.mapService.getMapBoxKey();
 	}
 
+	/**
+	 * Get map by type
+	 * @returns (1) opens street map / (2) google map
+	 */
 	async onGetGeoProvider() {
-		return await this.mapService.getGeoProvider();
+		const mapType = await this.mapService.getGeoProvider();
+		if (!mapType) {
+			this.notificationService.add("Can not load map try again.", { type: 'warning' });
+		}
+		return mapType;
 	}
 
 	async onGetGGMapKey() {
@@ -67,33 +73,21 @@ class MapWidget extends Component {
 		this.state = useState({
 			html_map_widget_tag: markup('<div class="mapbox-container" id="mapbox0"></div>'),
 			locationIndexList: [],
-			// tags for display markers
-			locationTagList: [],
-			locationTagSelectedList: [
-				{ index: 0, name: "Original location" }
-			],
+			markersOnMap: [],
 		});
-		var map;
+		this.map;
 
 		onWillStart(() => {
 			try {
-				let locationNameList = [];
-				for (let i = 1; i < this.props.number_of_location; i++) {
-					locationNameList = [...locationNameList, { index: i, name: `Location ${i}` }];
-				}
-				this.state.locationIndexList = [
-					{ index: 0, name: "Original location" },
-					...locationNameList,
-				]
-				this.state.locationTagList = [
-					...locationNameList,
-				]
-
 				this.loadMapLib();
 			} catch (err) {
 				console.log("1n1t err: ", err);
 			}
 		});
+		
+		onWillUpdateProps(async () => {
+			if (this.map) { await this.onDrawMarker(); }
+		})
 
 		onMounted(async () => {
 			await this.loadMapByType()
@@ -107,7 +101,7 @@ class MapWidget extends Component {
 	async loadMapLib() {
 		try {
 			const mapboxKey = await this.onGetMapBoxKey();
-			const htmlRenderMap = `<div class="map-container" id="map${this.props.map_id}" style="${this.props.style}">Map</div>`;
+			const htmlRenderMap = `<div class="map-container" id="map${this.props.map_id}" style="${this.props.style}"></div>`;
 			this.state.html_map_widget_tag = markup(htmlRenderMap);
 			if (mapboxKey) {
 				Promise.all([
@@ -144,7 +138,9 @@ class MapWidget extends Component {
 		try {
 			const mapboxKey = await this.onGetMapBoxKey();
 			if (mapboxKey) {
-				this.onLoadMapBox();
+				this.onLoadMapBox().then(() => {
+					this.onDrawMarker();
+				});
 				return;
 			} else {
 				const geoProvider = await this.onGetGeoProvider();
@@ -179,14 +175,14 @@ class MapWidget extends Component {
 				container: mapId,
 				style: 'mapbox://styles/mapbox/streets-v11',
 				center: [originLocation.originLong, originLocation.originLat],
-				zoom: 8,
+				zoom: this.props.zoomLevel || 8,
 				renderWorldCopies: false,
 			});
 			this.map.addControl(new mapboxgl.NavigationControl());
-			this.onDrawMarker(originLocation.originLat, originLocation.originLong);
 			return;
 		} catch (e) {
 			console.log("Map l0ad err");
+			this.notificationService.add("Can not load mapbox, try again.", { type: 'warning' });
 		}
 	}
 	
@@ -198,7 +194,7 @@ class MapWidget extends Component {
 			L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 			}).addTo(this.map);
-			this.onDrawMarker(originLocation.originLat, originLocation.originLong);
+			this.onDrawMarker();
 			return;
 		} catch (e) {
 			console.log("StreetMap l0ad err: ", e);
@@ -216,43 +212,60 @@ class MapWidget extends Component {
 				zoom: 15,
 				center: myLatLng
 			});
-			this.onDrawMarker(originLocation.originLat, originLocation.originLong);
+			this.onDrawMarker();
 			return;
 		} catch (e) {
 			console.log("GoogleMap l0ad err: ", e);
 		}
 	}
 	
-	async onDrawMarker(originLat, originLong) {
+	clearMarker() {
+		if (this.state.markersOnMap) {
+			this.state.markersOnMap.filter((marker) => {
+				marker.remove();
+			})
+		}
+	}
+	
+	async onDrawMarker() {
 		try {
 			const mapboxKey = await this.onGetMapBoxKey();
+			const originLocation = this.getOriginLatLong();
 			const originMarkerTitle = this.props.origin_marker_title || "Origin Location";
+			let markers = [];
 			if (mapboxKey) {
+				this.clearMarker();
 				const props = this.props
-				new mapboxgl.Marker()
-					.setLngLat([originLong, originLat])
+				const originMarker = new mapboxgl.Marker()
+					.setLngLat([originLocation.originLong, originLocation.originLat])
 					.setPopup(
 						new mapboxgl.Popup({ offset: 25 })
 								.setHTML(`<p>${originMarkerTitle}</p>`)
 					)
 					.addTo(this.map);
+				this.map.setCenter([originLocation.originLong, originLocation.originLat]);
+				markers.push(originMarker);
 				for (let i = 1; i < this.props.number_of_location; i++) {
 					const locationLatLong = this.getLatLongByIndex(i);
 					const markerTitleByIndex = props[`marker_title${i}`] || `Location ${i}`
-					new mapboxgl.Marker()
+					if (locationLatLong.lat || locationLatLong.long) {
+						const orderMarker = new mapboxgl.Marker()
 						.setLngLat([locationLatLong.long, locationLatLong.lat])
 						.setPopup(
 							new mapboxgl.Popup({ offset: 25 })
 								.setHTML(`<p>${markerTitleByIndex}</p>`)
 						)
 						.addTo(this.map);
+						markers.push(orderMarker);
+					}
 				}
+				this.state.markersOnMap = markers;
 				return;
 			} else {
 				const geoProvider = await this.onGetGeoProvider();
 				if (geoProvider === '1') {
 					const props = this.props
-					L.marker([originLat, originLong])
+					L.marker([originLocation.originLat, originLocation.originLong])
 						.addTo(this.map)
 						.bindPopup(originMarkerTitle)
 						.openPopup();
@@ -268,8 +281,8 @@ class MapWidget extends Component {
 				} else {
 					const props = this.props
 					const myLatLng = {
-						lat: parseFloat(originLat),
-						lng: parseFloat(originLong)
+						lat: parseFloat(originLocation.originLat),
+						lng: parseFloat(originLocation.originLong)
 					};
 					new window.google.maps.Marker({
 						position: myLatLng,
@@ -302,8 +315,7 @@ MapWidget.template = "map_widget.MapWidget";
 MapWidget.extractProps = ({ attrs }) => {
 	const {
 		origin_long, origin_lat, number_of_location = 0,
-		map_id = 0, show_reload_button = false,
-		origin_marker_title = "", style = ""
+		map_id = 0, origin_marker_title = "", style = "", zoomLevel = 8,
 	} = attrs;
 	const numb_of_location = parseInt(number_of_location);
 	let locationList = {};
@@ -320,9 +332,9 @@ MapWidget.extractProps = ({ attrs }) => {
 		map_id: parseInt(map_id),
 		origin_long, origin_lat,
 		number_of_location: numb_of_location,
-		show_reload_button: show_reload_button,
 		origin_marker_title: origin_marker_title,
-		style: style
+		style: style,
+		zoomLevel: zoomLevel,
 	};
 };
 registry.category("view_widgets").add("map_widget", MapWidget);
