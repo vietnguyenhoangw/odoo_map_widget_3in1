@@ -12,10 +12,8 @@ Odoo Map Widget allows you to show the location with marker on the map through l
 
 
 ## Demo
-
-<img src="https://user-images.githubusercontent.com/43869718/233117854-4bcc9797-f41d-4e37-b455-eda2163fdc22.gif" width="500" title="map-box"><img src="https://user-images.githubusercontent.com/43869718/233118901-4efc850c-f4f4-4419-9db2-e4fc8edcbd4a.png" width="500" title="street-map"><img src="https://user-images.githubusercontent.com/43869718/233118942-7fbb1019-e417-4829-861e-1a74a434744f.png" width="500" title="google-map">
-
-:bangbang::bangbang::bangbang: **For better performance working with odoo architecture, map widget need the reload page for display new location after insert data**. That's the reason this map has **Reload** button. But you still have option to hide this **Reload** button in no needed case.
+<!-- 
+<img src="https://user-images.githubusercontent.com/43869718/233117854-4bcc9797-f41d-4e37-b455-eda2163fdc22.gif" width="500" title="map-box"><img src="https://user-images.githubusercontent.com/43869718/233118901-4efc850c-f4f4-4419-9db2-e4fc8edcbd4a.png" width="500" title="street-map"><img src="https://user-images.githubusercontent.com/43869718/233118942-7fbb1019-e417-4829-861e-1a74a434744f.png" width="500" title="google-map"> -->
 
 
 ## Installation
@@ -43,7 +41,7 @@ Odoo Map Widget allows you to show the location with marker on the map through l
 
 
 3. Add 'map_widget' addons into your module depend you want to add map.
-<img src="https://user-images.githubusercontent.com/43869718/233133619-984c26ce-1052-4bdb-a364-8c4d11bac11c.png" width="500" title="map_widget-example">
+<!-- <img src="https://user-images.githubusercontent.com/43869718/233133619-984c26ce-1052-4bdb-a364-8c4d11bac11c.png" width="500" title="map_widget-example"> -->
 
 ## Usage Example
 
@@ -51,7 +49,8 @@ Odoo Map Widget allows you to show the location with marker on the map through l
 2. Create <widget> tag and add properties for this widget (Properties Detail). In below example we have props map_id, name, style, origin_lat and origin_long
 
 <b>:triangular_flag_on_post:Noticed: </b> We need to define the field with lat and long first, then put the lat and long into map widget with the same name value.
-<img src="https://user-images.githubusercontent.com/43869718/233136024-f7c30b54-451d-4878-a9ce-32835bd835d3.png" width="600" title="usage-example">
+<br/>
+<!-- <img src="https://user-images.githubusercontent.com/43869718/233136024-f7c30b54-451d-4878-a9ce-32835bd835d3.png" width="600" title="usage-example"> -->
 
 
 ## Properties
@@ -84,7 +83,7 @@ And if you want add more than 2 location just define **number_of_location** (rem
 
 Similar add more than 1 location properties desciption above, If you want to custom any text title for marker. You just need to add field with number of location index: **marker_title1**,**marker_title2**,**marker_title3**... </br>
 #### **Dynamic config example**
-<img src="https://user-images.githubusercontent.com/43869718/233145766-e7ea8e27-fa9f-4b29-8d07-2abb29a0a444.png" width="600" title="usage-example">
+<!-- <img src="https://user-images.githubusercontent.com/43869718/233145766-e7ea8e27-fa9f-4b29-8d07-2abb29a0a444.png" width="600" title="usage-example"> -->
 
 ## Credits & Support
 - vietnguyenhoangw <[vietnguyenhoangw@gmail.com](vietnguyenhoangw@gmail.com)>
