@@ -12,8 +12,7 @@ Odoo Map Widget allows you to show the location with marker on the map through l
 
 
 ## Demo
-<!-- 
-<img src="https://user-images.githubusercontent.com/43869718/233117854-4bcc9797-f41d-4e37-b455-eda2163fdc22.gif" width="500" title="map-box"><img src="https://user-images.githubusercontent.com/43869718/233118901-4efc850c-f4f4-4419-9db2-e4fc8edcbd4a.png" width="500" title="street-map"><img src="https://user-images.githubusercontent.com/43869718/233118942-7fbb1019-e417-4829-861e-1a74a434744f.png" width="500" title="google-map"> -->
+<img src="https://github.com/anhvu-sg/odoo-mvp/assets/43869718/5397a142-c11f-4df8-b279-e74e3c66cbb2" width="500" title="map-box"><img src="https://github.com/anhvu-sg/odoo-mvp/assets/43869718/51da5577-32f8-4fc4-b208-2e8f8170c44c" width="500" title="street-map"><img src="https://github.com/anhvu-sg/odoo-mvp/assets/43869718/8cfca271-672f-457c-8604-1fe9cd17a43c" width="500" title="google-map">
 
 
 ## Installation
