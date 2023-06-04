@@ -13,7 +13,7 @@
     ],
     "assets": {
         "web.assets_backend": [
-            'map_widget/static/src/**/*',
+            'odoo_map_widget_3in1/static/src/**/*',
         ],
     },
     "application": True,

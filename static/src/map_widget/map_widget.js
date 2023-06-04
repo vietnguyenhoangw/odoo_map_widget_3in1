@@ -20,7 +20,7 @@ class MapWidget extends Component {
 	async onGetGeoProvider() {
 		const mapType = await this.mapService.getGeoProvider();
 		if (!mapType) {
-			this.notificationService.add("Can not load map try again.", { type: 'warning' });
+			return;
 		}
 		return mapType;
 	}
@@ -28,7 +28,7 @@ class MapWidget extends Component {
 	async onGetGGMapKey() {
 		const ggMapKey = await this.mapService.getGGMapKey();
 		if (!ggMapKey) {
-			this.notificationService.add("Google API KEY is invalid.", { type: 'warning' });
+			return;
 		}
 		return ggMapKey;
 	}
@@ -68,7 +68,7 @@ class MapWidget extends Component {
 	}
 
 	async setup() {
-		this.mapService = useService("map_widget/mapService");
+		this.mapService = useService("odoo_map_widget_3in1/mapService");
 		this.notificationService = useService("notification");
 		this.state = useState({
 			html_map_widget_tag: markup('<div class="mapbox-container" id="mapbox0"></div>'),
@@ -76,6 +76,7 @@ class MapWidget extends Component {
 			markersOnMap: [],
 		});
 		this.map;
+		this.markersOnMap = [];
 
 		onWillStart(() => {
 			try {
@@ -121,16 +122,21 @@ class MapWidget extends Component {
 					return;
 				} else {
 					const ggMapKey = await this.onGetGGMapKey();
-					var script = document.createElement('script');
-					script.src = `https://maps.googleapis.com/maps/api/js?key=${ggMapKey}&v=3&callback=dummy`
-					script.async = true;
-					document.head.appendChild(script);
-					function dummy() {}
-					window.dummy=dummy;
+					if (ggMapKey) {
+						var script = document.createElement('script');
+						script.src = `https://maps.googleapis.com/maps/api/js?key=${ggMapKey}&v=3&callback=dummy`
+						script.async = true;
+						document.head.appendChild(script);
+						function dummy() {}
+						window.dummy=dummy;
+					} else {
+						this.notificationService.add("Google Map Key is invalid.", { type: 'warning' });
+					}
 				}
 			}
 		} catch (e) {
 			console.log("Map l1b err l0ad: ", e);
+			this.notificationService.add("Can not load map, try again.", { type: 'warning' });
 		}
 	}
 
@@ -182,7 +188,7 @@ class MapWidget extends Component {
 			return;
 		} catch (e) {
 			console.log("Map l0ad err");
-			this.notificationService.add("Can not load mapbox, try again.", { type: 'warning' });
+			this.notificationService.add("Can not load MapBox, try again.", { type: 'warning' });
 		}
 	}
 	
@@ -190,14 +196,15 @@ class MapWidget extends Component {
 		try {
 			const originLocation = this.getOriginLatLong();
 			if (this.map) { this.map.remove() }
-			this.map = L.map(`map${this.props.map_id}`).setView([originLocation.originLat, originLocation.originLong], 13);
+			this.map = L.map(`map${this.props.map_id}`, { zoomControl: true, zoom: 1, zoomAnimation: false, fadeAnimation: true, markerZoomAnimation: true, maxBoundsViscosity: 1.0}).setView([originLocation.originLat, originLocation.originLong], 4);
 			L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 			}).addTo(this.map);
 			this.onDrawMarker();
 			return;
 		} catch (e) {
 			console.log("StreetMap l0ad err: ", e);
+			this.notificationService.add("Can not load OpenStreetMap, try again.", { type: 'warning' });
 		}
 	}
 	
@@ -216,14 +223,7 @@ class MapWidget extends Component {
 			return;
 		} catch (e) {
 			console.log("GoogleMap l0ad err: ", e);
-		}
-	}
-	
-	clearMarker() {
-		if (this.state.markersOnMap) {
-			this.state.markersOnMap.filter((marker) => {
-				marker.remove();
-			})
+			this.notificationService.add("Can not load GoogleMap, try again.", { type: 'warning' });
 		}
 	}
 	
@@ -234,7 +234,11 @@ class MapWidget extends Component {
 			const originMarkerTitle = this.props.origin_marker_title || "Origin Location";
 			let markers = [];
 			if (mapboxKey) {
-				this.clearMarker();
+				if (this.state.markersOnMap) {
+					this.state.markersOnMap.filter((marker) => {
+						marker.remove();
+					})
+				}
 				const props = this.props
 				const originMarker = new mapboxgl.Marker()
 					.setLngLat([originLocation.originLong, originLocation.originLat])
@@ -248,7 +252,7 @@ class MapWidget extends Component {
 				for (let i = 1; i < this.props.number_of_location; i++) {
 					const locationLatLong = this.getLatLongByIndex(i);
 					const markerTitleByIndex = props[`marker_title${i}`] || `Location ${i}`
-					if (locationLatLong.lat || locationLatLong.long) {
+					if (locationLatLong.lat && locationLatLong.long) {
 						const orderMarker = new mapboxgl.Marker()
 						.setLngLat([locationLatLong.long, locationLatLong.lat])
 						.setPopup(
@@ -264,44 +268,64 @@ class MapWidget extends Component {
 			} else {
 				const geoProvider = await this.onGetGeoProvider();
 				if (geoProvider === '1') {
+					if (this.state.markersOnMap) {
+						this.state.markersOnMap.filter((marker) => {
+							this.map && this.map.removeLayer(marker);
+						})
+					}
 					const props = this.props
-					L.marker([originLocation.originLat, originLocation.originLong])
+					const originMarker = L.marker([originLocation.originLat, originLocation.originLong])
 						.addTo(this.map)
 						.bindPopup(originMarkerTitle)
 						.openPopup();
+					markers.push(originMarker);
 					for (let i = 1; i < this.props.number_of_location; i++) {
 						const locationLatLong = this.getLatLongByIndex(i);
 						const markerTitleByIndex = props[`marker_title${i}`] || `Location ${i}`
-						L.marker([locationLatLong.lat, locationLatLong.long])
+						if (locationLatLong.lat && locationLatLong.long) {
+							const orderMarker = L.marker([locationLatLong.lat, locationLatLong.long])
 							.addTo(this.map)
 							.bindPopup(markerTitleByIndex)
 							.openPopup();
+							markers.push(orderMarker);
+						}
 					}
+					this.state.markersOnMap = markers;
 					return;
 				} else {
+					if (this.markersOnMap) {
+						this.markersOnMap.filter((marker) => {
+							marker.setMap(null);
+						})
+					}
 					const props = this.props
-					const myLatLng = {
+					const originLatLng = {
 						lat: parseFloat(originLocation.originLat),
 						lng: parseFloat(originLocation.originLong)
 					};
-					new window.google.maps.Marker({
-						position: myLatLng,
+					const originMarker = new window.google.maps.Marker({
+						position: originLatLng,
 						title: originMarkerTitle,
 						map: this.map,
 					});
+					markers.push(originMarker);
 					for (let i = 1; i < this.props.number_of_location; i++) {
 						const locationLatLong = this.getLatLongByIndex(i);
-						const markerTitleByIndex = props[`marker_title${i}`] || `Location ${i}`
-						const myLatLng = {
-							lat: parseFloat(locationLatLong.lat),
-							lng: parseFloat(locationLatLong.long)
-						};
-						new window.google.maps.Marker({
-							position: myLatLng,
-							title: markerTitleByIndex,
-							map: this.map,
-						});
+						const markerTitleByIndex = props[`marker_title${i}`] || `Location ${i}`;
+						if (locationLatLong.lat && locationLatLong.long) {
+							const orderLatLng = {
+								lat: parseFloat(locationLatLong.lat),
+								lng: parseFloat(locationLatLong.long)
+							};
+							const orderMarker = new window.google.maps.Marker({
+								position: orderLatLng,
+								title: markerTitleByIndex,
+								map: this.map,
+							});
+							markers.push(orderMarker);
+						}
 					}
+					this.markersOnMap = markers;
 					return;
 				}
 			}
@@ -337,4 +361,4 @@ MapWidget.extractProps = ({ attrs }) => {
 		zoomLevel: zoomLevel,
 	};
 };
-registry.category("view_widgets").add("map_widget", MapWidget);
+registry.category("view_widgets").add("odoo_map_widget_3in1", MapWidget);
