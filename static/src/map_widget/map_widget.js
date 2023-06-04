@@ -195,7 +195,7 @@ class MapWidget extends Component {
 		try {
 			const originLocation = this.getOriginLatLong();
 			if (this.map) { this.map.remove() }
-			this.map = L.map(`map${this.props.map_id}`, { zoomControl: true, zoom: 1, zoomAnimation: false, fadeAnimation: true, markerZoomAnimation: true, maxBoundsViscosity: 1.0}).setView([originLocation.originLat, originLocation.originLong], his.props.zoomLevel || 8);
+			this.map = L.map(`map${this.props.map_id}`, { zoomControl: true, zoom: 1, zoomAnimation: false, fadeAnimation: true, markerZoomAnimation: true, maxBoundsViscosity: 1.0}).setView([originLocation.originLat, originLocation.originLong], this.props.zoomLevel || 8);
 			L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 			}).addTo(this.map);
