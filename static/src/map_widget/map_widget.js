@@ -105,10 +105,10 @@ class MapWidget extends Component {
 			this.state.html_map_widget_tag = markup(htmlRenderMap);
 			if (mapboxKey) {
 				Promise.all([
-					loadJS("/map_widget/static/lib/map_box/map_box.js"),
-					loadCSS("/map_widget/static/lib/map_box/map_box.css"),
-					loadCSS("/map_widget/static/lib/map_box/map_box_geo.css"),
-					loadJS("/map_widget/static/lib/map_box/map_box_geo.min.js"),
+					loadJS("/odoo_map_widget_3in1/static/lib/map_box/map_box.js"),
+					loadCSS("/odoo_map_widget_3in1/static/lib/map_box/map_box.css"),
+					loadCSS("/odoo_map_widget_3in1/static/lib/map_box/map_box_geo.css"),
+					loadJS("/odoo_map_widget_3in1/static/lib/map_box/map_box_geo.min.js"),
 				])
 				return;
 			} else {
