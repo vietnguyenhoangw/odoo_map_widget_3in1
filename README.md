@@ -41,7 +41,7 @@ Odoo Map Widget allows you to show the location with marker on the map through l
 
 
 3. Add 'map_widget' addons into your module depend you want to add map.
-<!-- <img src="https://user-images.githubusercontent.com/43869718/233133619-984c26ce-1052-4bdb-a364-8c4d11bac11c.png" width="500" title="map_widget-example"> -->
+<img src="https://github.com/anhvu-sg/odoo-mvp/assets/43869718/3f80f3b9-2328-4bfa-bc8e-07c50d93f647" width="500" title="map_widget-example">
 
 ## Usage Example
 
@@ -50,7 +50,7 @@ Odoo Map Widget allows you to show the location with marker on the map through l
 
 <b>:triangular_flag_on_post:Noticed: </b> We need to define the field with lat and long first, then put the lat and long into map widget with the same name value.
 <br/>
-<!-- <img src="https://user-images.githubusercontent.com/43869718/233136024-f7c30b54-451d-4878-a9ce-32835bd835d3.png" width="600" title="usage-example"> -->
+<img src="https://github.com/anhvu-sg/odoo-mvp/assets/43869718/11a2c8dc-2764-4a1a-b184-8e926847ba86" width="600" title="usage-example">
 
 
 ## Properties
@@ -62,7 +62,7 @@ Odoo Map Widget allows you to show the location with marker on the map through l
 |origin_lat   | First location point **latitude** field name | **(string)** latitude field name in model  |
 |origin_long   | First location point **longitude** field name  | **(string)** longitude field name in model  |
 |style   | HTML style value  | **(string)** "width: 100vw; height: 70vh;..."  |
-|show_reload_button   | **(string boolean)** Display reload button status, "false" is default value | **(string)** "true"  |
+|zoomLevel   | **(string number)** map zoom level | **(string number)** "8" is default value https://docs.mapbox.com/help/glossary/zoom-level/ |
 
 **If you want to add more than 1 location point, following bellow properties**
 
@@ -83,7 +83,7 @@ And if you want add more than 2 location just define **number_of_location** (rem
 
 Similar add more than 1 location properties desciption above, If you want to custom any text title for marker. You just need to add field with number of location index: **marker_title1**,**marker_title2**,**marker_title3**... </br>
 #### **Dynamic config example**
-<!-- <img src="https://user-images.githubusercontent.com/43869718/233145766-e7ea8e27-fa9f-4b29-8d07-2abb29a0a444.png" width="600" title="usage-example"> -->
+<img src="https://github.com/anhvu-sg/odoo-mvp/assets/43869718/1acbe973-df86-46c3-84fc-591a1971ed4b" width="600" title="usage-example">
 
 ## Credits & Support
 - vietnguyenhoangw <[vietnguyenhoangw@gmail.com](vietnguyenhoangw@gmail.com)>
