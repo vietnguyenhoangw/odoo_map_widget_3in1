@@ -32,4 +32,4 @@ export const mapService = {
   },
 };
 
-registry.category("services").add("odoo_map_widget_3in1/mapService", mapService);
+registry.category("services").add("map_widget_3in1/mapService", mapService);

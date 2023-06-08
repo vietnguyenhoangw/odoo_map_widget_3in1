@@ -67,7 +67,7 @@
 
 <body>
     <div>
-        <p class="title">🗺️ Odoo Map Widget (3 in 1) - Odoo V16</p>
+        <p class="title">🗺️ Map Widget (3 in 1) - Odoo V16</p>
         <div class="line"></div>
         <p>Easy Map Widget integration.</p>
         <ul>
@@ -85,22 +85,19 @@
         <p class="section-title">Demo</p>
         <div class="line"></div>
         
-        <p><img src="https://user-images.githubusercontent.com/43869718/233117854-4bcc9797-f41d-4e37-b455-eda2163fdc22.gif"
+        <p><img src="./static/description/mapbox.gif"
                 width="500" title="map-box"><img
-                src="https://user-images.githubusercontent.com/43869718/233118901-4efc850c-f4f4-4419-9db2-e4fc8edcbd4a.png"
+                src="./static/description/streetmap.gif"
                 width="500" title="street-map"><img
-                src="https://user-images.githubusercontent.com/43869718/233118942-7fbb1019-e417-4829-861e-1a74a434744f.png"
+                src="./static/description/ggmap.gif"
                 width="500" title="google-map"></p>
-        <p>‼️‼️‼️ <b>For better performance working with odoo architecture, map widget need the reload page for display
-                new location after insert data.</b> That's the reason this map has <b>Reload</b> button. But you still
-            have option to hide this <b>Reload</b> button in no needed case.</p>
     </div>
     
     <div>
         <p class="section-title">Installation</p>
         <div class="line"></div>
         <ul>
-            <li class="text-large">1. Put the <b>'map_widget'</b> add-ons into your Odoo source code</li>
+            <li class="text-large">1. Put the <b>'map_widget_3in1'</b> add-ons into your Odoo source code</li>
             <li class="text-large">2. Three options are prioritised as listed below.</li>
                 <p class="section-mini">📌 Mapbox</p>
                 <p><b>a.1.</b> If you want to display Mapbox, you need to register <a href="https://www.mapbox.com/">Map Box's</a> API KEY</p>
@@ -117,9 +114,9 @@
                 <p><b>c.2.</b> Make sure <b>Geo Localization</b> API's option is <b>Google Place Map</b>, and do not forget adding <a href="https://developers.google.com/maps/documentation/javascript/get-api-key">Google API KEY</a></p>
                 <img src="https://user-images.githubusercontent.com/43869718/233132268-d1c89adf-ca93-42ba-af90-693c86232113.png" width="350" title="google-map-example">
                 
-            <li class="text-large">3. Add <b>'map_widget'</b> addons into your module depend you want to add map.</li>
+            <li class="text-large">3. Add <b>'map_widget_3in1'</b> addons into your module depend you want to add map.</li>
             
-            <img src="https://user-images.githubusercontent.com/43869718/233133619-984c26ce-1052-4bdb-a364-8c4d11bac11c.png" width="500" title="map_widget-example">
+            <img src="./static/description/integrate_ex_1.png" width="500" title="map_widget-example">
         </ul>
     </div>
     
@@ -131,7 +128,7 @@
             <li>2. Create <widget> tag and add properties for this widget (Properties Detail). In below example we have props map_id, name, style, origin_lat and origin_long</li>
         </ul>
         <p><b>🚩 Noticed: </b> We need to define the field with lat and long first, then put the lat and long into map widget with the same name value.</p>
-        <img src="https://user-images.githubusercontent.com/43869718/233136024-f7c30b54-451d-4878-a9ce-32835bd835d3.png" width="600" title="usage-example">
+        <img src="./static/description/integrate_ex_2.png" width="600" title="usage-example">
     </div>
     
     <div>
@@ -169,9 +166,9 @@
               <td><b>(string)</b> "width: 100vw; height: 70vh;..."</td>
             </tr>
             <tr>
-              <td>show_reload_button</td>
-              <td>Display reload button status, "false" is default value</td>
-              <td><b>(string boolean)</b> "true"</td>
+              <td>zoomLevel</td>
+              <td>**(string number)** map zoom level</td>
+              <td><b>(string number)</b> "8" is default value https://docs.mapbox.com/help/glossary/zoom-level/</td>
             </tr>
           </table>
           
@@ -226,7 +223,7 @@
           
           <p class="text-large add-height-space"><b>📌 Dynamic config example</b></p>
           
-          <img src="https://user-images.githubusercontent.com/43869718/233145766-e7ea8e27-fa9f-4b29-8d07-2abb29a0a444.png" width="600" title="usage-example">
+          <img src="./static/description/integrate_ex_3.png" width="600" title="usage-example">
     </div>
     
     <div>

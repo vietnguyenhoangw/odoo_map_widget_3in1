@@ -1,6 +1,6 @@
 {
-    "name": "Map Widget",
-    "summary": "Map Widget",
+    "name": "Map Widget 3in1",
+    "summary": "Map Widget 3in1",
     "author": "vietnguyenhoangw",
     "license": "LGPL-3",
     "website": "",
@@ -13,7 +13,7 @@
     ],
     "assets": {
         "web.assets_backend": [
-            'odoo_map_widget_3in1/static/src/**/*',
+            'map_widget_3in1/static/src/**/*',
         ],
     },
     "application": True,

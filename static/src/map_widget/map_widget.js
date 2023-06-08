@@ -68,7 +68,7 @@ class MapWidget extends Component {
 	}
 
 	async setup() {
-		this.mapService = useService("odoo_map_widget_3in1/mapService");
+		this.mapService = useService("map_widget_3in1/mapService");
 		this.notificationService = useService("notification");
 		this.state = useState({
 			html_map_widget_tag: markup('<div class="mapbox-container" id="mapbox0"></div>'),
@@ -105,18 +105,18 @@ class MapWidget extends Component {
 			this.state.html_map_widget_tag = markup(htmlRenderMap);
 			if (mapboxKey) {
 				Promise.all([
-					loadJS("/odoo_map_widget_3in1/static/lib/map_box/map_box.js"),
-					loadCSS("/odoo_map_widget_3in1/static/lib/map_box/map_box.css"),
-					loadCSS("/odoo_map_widget_3in1/static/lib/map_box/map_box_geo.css"),
-					loadJS("/odoo_map_widget_3in1/static/lib/map_box/map_box_geo.min.js"),
+					loadJS("/map_widget_3in1/static/lib/map_box/map_box.js"),
+					loadCSS("/map_widget_3in1/static/lib/map_box/map_box.css"),
+					loadCSS("/map_widget_3in1/static/lib/map_box/map_box_geo.css"),
+					loadJS("/map_widget_3in1/static/lib/map_box/map_box_geo.min.js"),
 				])
 				return;
 			} else {
 				const geoProvider = await this.onGetGeoProvider();
 				if (geoProvider === '1') {
 					Promise.all([
-						loadJS("/odoo_js_training/static/lib/leaflet/leaflet.js"),
-						loadCSS("/odoo_js_training/static/lib/leaflet/leaflet.css"),
+						loadJS("/map_widget_3in1/static/lib/leaflet/leaflet.js"),
+						loadCSS("/map_widget_3in1/static/lib/leaflet/leaflet.css"),
 					])
 					return;
 				} else {
@@ -360,4 +360,4 @@ MapWidget.extractProps = ({ attrs }) => {
 		zoomLevel: zoomLevel,
 	};
 };
-registry.category("view_widgets").add("odoo_map_widget_3in1", MapWidget);
+registry.category("view_widgets").add("map_widget_3in1", MapWidget);

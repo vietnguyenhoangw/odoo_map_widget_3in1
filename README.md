@@ -1,5 +1,5 @@
 
-# :world_map: Odoo Map Widget (3 in 1) - Odoo V16
+# :world_map: Map Widget (3 in 1) - Odoo V16
 
 Easy Map Widget integration.
 - :sparkles: [Map Box](https://www.mapbox.com) :sparkles:
@@ -12,12 +12,12 @@ Odoo Map Widget allows you to show the location with marker on the map through l
 
 
 ## Demo
-<img src="https://github.com/anhvu-sg/odoo-mvp/assets/43869718/5397a142-c11f-4df8-b279-e74e3c66cbb2" width="500" title="map-box"><img src="https://github.com/anhvu-sg/odoo-mvp/assets/43869718/51da5577-32f8-4fc4-b208-2e8f8170c44c" width="500" title="street-map"><img src="https://github.com/anhvu-sg/odoo-mvp/assets/43869718/8cfca271-672f-457c-8604-1fe9cd17a43c" width="500" title="google-map">
+<img src="./static/description/mapbox.gif" width="500" title="map-box"><img src="./static/description/streetmap.gif" width="500" title="street-map"><img src="./static/description/ggmap.gif" width="500" title="google-map">
 
 
 ## Installation
 
-1. Put the 'map_widget' add-ons into your Odoo source code
+1. Put the 'map_widget_3in1' add-ons into your Odoo source code
 2. Three options are prioritised as listed below.<br/>
 
 	#### :pushpin: Mapbox
@@ -39,8 +39,8 @@ Odoo Map Widget allows you to show the location with marker on the map through l
     ![Screen Shot 2023-04-19 at 10 51 30 PM](https://user-images.githubusercontent.com/43869718/233132268-d1c89adf-ca93-42ba-af90-693c86232113.png)
 
 
-3. Add 'map_widget' addons into your module depend you want to add map.
-<img src="https://github.com/anhvu-sg/odoo-mvp/assets/43869718/3f80f3b9-2328-4bfa-bc8e-07c50d93f647" width="500" title="map_widget-example">
+3. Add 'map_widget_3in1' addons into your module depend you want to add map.
+<img src="./static/description/integrate_ex_1.png" width="500" title="map_widget-example">
 
 ## Usage Example
 
@@ -49,7 +49,7 @@ Odoo Map Widget allows you to show the location with marker on the map through l
 
 <b>:triangular_flag_on_post:Noticed: </b> We need to define the field with lat and long first, then put the lat and long into map widget with the same name value.
 <br/>
-<img src="https://github.com/anhvu-sg/odoo-mvp/assets/43869718/11a2c8dc-2764-4a1a-b184-8e926847ba86" width="600" title="usage-example">
+<img src="./static/description/integrate_ex_2.png" width="600" title="usage-example">
 
 
 ## Properties
@@ -82,7 +82,7 @@ And if you want add more than 2 location just define **number_of_location** (rem
 
 Similar add more than 1 location properties desciption above, If you want to custom any text title for marker. You just need to add field with number of location index: **marker_title1**,**marker_title2**,**marker_title3**... </br>
 #### **Dynamic config example**
-<img src="https://github.com/anhvu-sg/odoo-mvp/assets/43869718/1acbe973-df86-46c3-84fc-591a1971ed4b" width="600" title="usage-example">
+<img src="./static/description/integrate_ex_3.png" width="600" title="usage-example">
 
 ## Credits & Support
 - vietnguyenhoangw <[vietnguyenhoangw@gmail.com](vietnguyenhoangw@gmail.com)>
