@@ -4,8 +4,8 @@ import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { loadJS, loadCSS } from "@web/core/assets";
 
-const { 
-	Component, useState, onWillStart, markup, 
+const {
+	Component, useState, onWillStart, markup,
 	onError, onMounted, onWillUpdateProps } = owl;
 
 class MapWidget extends Component {
@@ -32,7 +32,7 @@ class MapWidget extends Component {
 		}
 		return ggMapKey;
 	}
-	
+
 	getOriginLatLong() {
 		const latFieldName = this.props.origin_lat;
 		const longFieldName = this.props.origin_long;
@@ -56,7 +56,7 @@ class MapWidget extends Component {
 
 		let lat = this.props.record.data[latFieldName];
 		let long = this.props.record.data[longFieldName];
-		
+
 		// lat long validation
 		if (lat > 90.0000000 || lat < -90.0000000 ||
 			long > 180.0000000 || long < -180.0000000) {
@@ -84,7 +84,7 @@ class MapWidget extends Component {
 				console.log("1n1t err: ", err);
 			}
 		});
-		
+
 		onWillUpdateProps(async () => {
 			if (this.map) { await this.onDrawMarker(); }
 		})
@@ -95,7 +95,7 @@ class MapWidget extends Component {
 
 		onError(() => {
 			console.log("MWD hook err");
-		})		
+		})
 	}
 
 	async loadMapLib() {
@@ -126,8 +126,8 @@ class MapWidget extends Component {
 						script.src = `https://maps.googleapis.com/maps/api/js?key=${ggMapKey}&v=3&callback=dummy`
 						script.async = true;
 						document.head.appendChild(script);
-						function dummy() {}
-						window.dummy=dummy;
+						function dummy() { }
+						window.dummy = dummy;
 					} else {
 						this.notificationService.add("Google Map Key is invalid.", { type: 'warning' });
 					}
@@ -190,12 +190,12 @@ class MapWidget extends Component {
 			this.notificationService.add("Can not load MapBox, try again.", { type: 'warning' });
 		}
 	}
-	
+
 	onLoadStreetMap() {
 		try {
 			const originLocation = this.getOriginLatLong();
 			if (this.map) { this.map.remove() }
-			this.map = L.map(`map${this.props.map_id}`, { zoomControl: true, zoom: 1, zoomAnimation: false, fadeAnimation: true, markerZoomAnimation: true, maxBoundsViscosity: 1.0}).setView([originLocation.originLat, originLocation.originLong], this.props.zoomLevel || 8);
+			this.map = L.map(`map${this.props.map_id}`, { zoomControl: true, zoom: 1, zoomAnimation: false, fadeAnimation: true, markerZoomAnimation: true, maxBoundsViscosity: 1.0 }).setView([originLocation.originLat, originLocation.originLong], this.props.zoomLevel || 8);
 			L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 			}).addTo(this.map);
@@ -206,7 +206,7 @@ class MapWidget extends Component {
 			this.notificationService.add("Can not load OpenStreetMap, try again.", { type: 'warning' });
 		}
 	}
-	
+
 	async onLoadGGMap() {
 		try {
 			const originLocation = this.getOriginLatLong();
@@ -225,7 +225,7 @@ class MapWidget extends Component {
 			this.notificationService.add("Can not load GoogleMap, try again.", { type: 'warning' });
 		}
 	}
-	
+
 	async onDrawMarker() {
 		try {
 			const mapboxKey = await this.onGetMapBoxKey();
@@ -243,7 +243,7 @@ class MapWidget extends Component {
 					.setLngLat([originLocation.originLong, originLocation.originLat])
 					.setPopup(
 						new mapboxgl.Popup({ offset: 25 })
-								.setHTML(`<p>${originMarkerTitle}</p>`)
+							.setHTML(`<p>${originMarkerTitle}</p>`)
 					)
 					.addTo(this.map);
 				this.map.setCenter([originLocation.originLong, originLocation.originLat]);
@@ -253,12 +253,12 @@ class MapWidget extends Component {
 					const markerTitleByIndex = props[`marker_title${i}`] || `Location ${i}`
 					if (locationLatLong.lat && locationLatLong.long) {
 						const orderMarker = new mapboxgl.Marker()
-						.setLngLat([locationLatLong.long, locationLatLong.lat])
-						.setPopup(
-							new mapboxgl.Popup({ offset: 25 })
-								.setHTML(`<p>${markerTitleByIndex}</p>`)
-						)
-						.addTo(this.map);
+							.setLngLat([locationLatLong.long, locationLatLong.lat])
+							.setPopup(
+								new mapboxgl.Popup({ offset: 25 })
+									.setHTML(`<p>${markerTitleByIndex}</p>`)
+							)
+							.addTo(this.map);
 						markers.push(orderMarker);
 					}
 				}
@@ -283,9 +283,9 @@ class MapWidget extends Component {
 						const markerTitleByIndex = props[`marker_title${i}`] || `Location ${i}`
 						if (locationLatLong.lat && locationLatLong.long) {
 							const orderMarker = L.marker([locationLatLong.lat, locationLatLong.long])
-							.addTo(this.map)
-							.bindPopup(markerTitleByIndex)
-							.openPopup();
+								.addTo(this.map)
+								.bindPopup(markerTitleByIndex)
+								.openPopup();
 							markers.push(orderMarker);
 						}
 					}
