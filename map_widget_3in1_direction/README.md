@@ -1,15 +1,8 @@
 
-# :world_map: Map Widget (3 in 1) - Odoo V16
+# :world_map: Map Widget (3 in 1) Direction - Odoo V16
 
-Easy Map Widget integration.
-- :sparkles: [Map Box](https://www.mapbox.com) :sparkles:
-- :sparkles: [Open Street Map](https://www.openstreetmap.org/#map=6/16.113/105.806) :sparkles:
-- :sparkles: [Google Map](https://developers.google.com/maps/documentation) :sparkles:
-
-Odoo Map Widget allows you to show the location with marker on the map through latitude and longitude. Also, you can show multiple location with marker with add dynamic latitude and longitude properties.
-
-**Especially, you can config to show location by one of the map (mapbox, street-map, google-map) by installing this addons only.**
-
+### Easy Map Widget with direction feature integration.
+<b>:rotating_light:Noticed: </b> For using this direction feature, you need to integrate <b>[map_widget_3in1](https://developers.google.com/maps/documentation/javascript/get-api-key)</b> addon first.
 
 ## Demo
 <img src="./static/description/mapbox.gif" width="500" title="map-box"><img src="./static/description/streetmap.gif" width="500" title="street-map"><img src="./static/description/ggmap.gif" width="500" title="google-map">
@@ -17,7 +10,8 @@ Odoo Map Widget allows you to show the location with marker on the map through l
 
 ## Installation
 
-1. Put the 'map_widget_3in1' add-ons into your Odoo source code
+1. Put the <b>'map_widget_3in1_direction'</b> add-ons into your Odoo source code (same folder contain <b>map_widget_3in1</b>)
+	<img src="./static/description/integrate_ex_0.png" width="200" title="map_widget-example">
 2. Three options are prioritised as listed below.<br/>
 
 	#### :pushpin: Mapbox
@@ -39,10 +33,27 @@ Odoo Map Widget allows you to show the location with marker on the map through l
     ![Screen Shot 2023-04-19 at 10 51 30 PM](https://user-images.githubusercontent.com/43869718/233132268-d1c89adf-ca93-42ba-af90-693c86232113.png)
 
 
-3. Add 'map_widget_3in1' addons into your module depend you want to add map.
+3. Add <b>'map_widget_3in1_direction'</b> addons into your module depend you want to add map.
 <img src="./static/description/integrate_ex_1.png" width="500" title="map_widget-example">
 
 ## Usage Example
+To add widget map direction, you need to have more than 2 of locations ([read properties create dynamic location in map_widget_3in1](https://developers.google.com/maps/documentation/javascript/get-api-key))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 1. Add 2 fields are lat and long (following bellow example are main_latitude and main_longitude).
 2. Create <widget> tag and add properties for this widget (Properties Detail). In below example we have props map_id, name, style, origin_lat and origin_long
