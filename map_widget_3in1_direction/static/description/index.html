@@ -67,29 +67,21 @@
 
 <body>
     <div>
-        <p class="title">🗺️ Map Widget (3 in 1) - Odoo V16</p>
+        <p class="title">🗺️ Map Widget (3 in 1) Direction - Odoo V16</p>
         <div class="line"></div>
-        <p>Easy Map Widget integration.</p>
-        <ul>
-            <li>✨<a href="https://www.mapbox.com/">Map Box</a>✨</li>
-            <li>✨<a href="https://www.openstreetmap.org/#map=6/16.113/105.806">Open Street Map</a>✨</li>
-            <li>✨<a href="https://developers.google.com/maps/documentation">Google Map</a>✨</li>
-        </ul>
-        <p>Odoo Map Widget allows you to show the location with marker on the map through latitude and longitude. Also,
-            you can show multiple location with marker with add dynamic latitude and longitude properties.</p>
-        <p class="bold">Especially, you can config to show location by one of the map (mapbox, street-map, google-map)
-            by installing this addons only.</p>
+        <h2>Easy Map Widget with direction feature integration.</h2>
+        <p><b>🚨Noticed: </b>For using this direction feature, you need to integrate <a href="https://www.mapbox.com/">map_widget_3in1</a> addon first.</p>
     </div>
-    
+
     <div>
         <p class="section-title">Demo</p>
         <div class="line"></div>
-        
-        <p><img src="./mapbox.gif"
+
+        <p><img src="./rec1.gif"
                 width="500" title="map-box"><img
-                src="./streetmap.gif"
+                src="./rec2.gif"
                 width="500" title="street-map"><img
-                src="./ggmap.gif"
+                src="./rec3.gif"
                 width="500" title="google-map"></p>
     </div>
     
@@ -97,25 +89,26 @@
         <p class="section-title">Installation</p>
         <div class="line"></div>
         <ul>
-            <li class="text-large">1. Put the <b>'map_widget_3in1'</b> add-ons into your Odoo source code</li>
+            <li class="text-large">1. Put the <b>'map_widget_3in1_direction'</b> add-ons into your Odoo source code (same folder contain <b>map_widget_3in1</b>)</li>
+            <img src="./integrate_ex_0.png" width="350" title="map-route-example">
             <li class="text-large">2. Three options are prioritised as listed below.</li>
                 <p class="section-mini">📌 Mapbox</p>
                 <p><b>a.1.</b> If you want to display Mapbox, you need to register <a href="https://www.mapbox.com/">Map Box's</a> API KEY</p>
                 <p><b>a.2.</b> Enter the Mapbox API KEY into <b>Setting</b>. And if you enter the Mapbox's API KEY, the map widget will always choose Mapbox to display first.</p>
                 <img src="https://user-images.githubusercontent.com/43869718/233131625-c6d2fcec-0e9d-4bf7-ad56-fb944b55d82f.png" width="350" title="map-route-example">
-                
+
                 <p class="section-mini">📌 Open Street Map</p>
                 <p><b>b.1.</b> If you want to display Street Map, just leave the Mapbox API KEY blank and tick into the <b>Geo Localization</b> option.</p>
                 <p><b>b.2.</b> Make sure <b>Geo Localization</b> API's option is <b>Open Street Map</b>.</p>
                 <img src="https://user-images.githubusercontent.com/43869718/233131655-cf4f3041-a991-408e-ac4c-5a1c56cf1191.png" width="350" title="street-map-example">
-                
+
                 <p class="section-mini">📌 Google Map</p>
                 <p><b>c.1.</b> If you want to display Google Map, config following <b></b>b.1 step.</p>
                 <p><b>c.2.</b> Make sure <b>Geo Localization</b> API's option is <b>Google Place Map</b>, and do not forget adding <a href="https://developers.google.com/maps/documentation/javascript/get-api-key">Google API KEY</a></p>
                 <img src="https://user-images.githubusercontent.com/43869718/233132268-d1c89adf-ca93-42ba-af90-693c86232113.png" width="350" title="google-map-example">
-                
-            <li class="text-large">3. Add <b>'map_widget_3in1'</b> addons into your module depend you want to add map.</li>
-            
+
+            <li class="text-large">3. Add <b>'map_widget_3in1_direction'</b> addons into your module depend you want to add map.</li>
+
             <img src="./integrate_ex_1.png" width="500" title="map_widget-example">
         </ul>
     </div>
@@ -123,17 +116,28 @@
     <div>
         <p class="section-title">Usage Example</p>
         <div class="line"></div>
+        <b><p>To add widget map direction, you need to have more than 2 of locations <a href="https://www.mapbox.com/">(read properties section - create dynamic location in map_widget_3in1)</a></p></b>
+        <p>We have 2 of ways to direction form first location to second location.</p>
         <ul>
-            <li>1. Add 2 fields are lat and long (following bellow example are main_latitude and main_longitude).</li>
-            <li>2. Create <widget> tag and add properties for this widget (Properties Detail). In below example we have props map_id, name, style, origin_lat and origin_long</li>
+            <li><b>1. Auto direction (static direction without controller).</b></li><br />
+            Everything you need to do is add values for <b>auto_direction_locations</b>, the map will always drirect from A to B following location index values without controller. The values is string with 2 of location's index.<br /><br />
+            <b>Example:</b><br />
+            auto_direction_locations="0,1" (direction from original location to location1)<br />
+            auto_direction_locations="0,2" (direction from original location to location2)<br />
+            auto_direction_locations="1,2" (direction from location1 to location2)<br /><br />
+            <img src="./integrate_ex_2.png" width="600" title="usage-example">
+            <li><b>2. Direction with controller</b></li>
+            Just remove auto_direction_locations properties. We can using dynamic direction with controller UI.<br />
+            <img src="./controller1.png" width="600" title="usage-example">
+            <img src="./controller2.png" width="600" title="usage-example">
+            <img src="./controller3.png" width="600" title="usage-example">
         </ul>
-        <p><b>🚩 Noticed: </b> We need to define the field with lat and long first, then put the lat and long into map widget with the same name value.</p>
-        <img src="./integrate_ex_2.png" width="600" title="usage-example">
     </div>
-    
+
     <div>
         <p class="section-title">Properties</p>
         <div class="line"></div>
+        <p>This <b>map_widget_3in1_direction</b> addons have common properties with <b>map_widget_3in1</b>, so you can read detail addons's properties <a href="https://developers.google.com/maps/documentation/javascript/get-api-key">here</a></p>
         <table>
             <tr>
               <th>Function name</th>
@@ -141,91 +145,13 @@
               <th>Example value</th>
             </tr>
             <tr>
-              <td>map_id</td>
-              <td>Map key id</td>
-              <td><b>(string number)</b> "0" is default value</td>
-            </tr>
-            <tr>
-              <td>name</td>
-              <td>Widget's name</td>
-              <td><b>(string)</b> must be add-ons's name "map_widget"</td>
-            </tr>
-            <tr>
-              <td>origin_lat</td>
-              <td>First location point <b>latitude</b> field name</td>
-              <td><b>(string)</b> latitude field name in model</td>
-            </tr>
-            <tr>
-              <td>origin_long</td>
-              <td>First location point <b>longitude</b> field name</td>
-              <td><b>(string)</b> longitude field name in model</td>
-            </tr>
-            <tr>
-              <td>style</td>
-              <td>HTML style value</td>
-              <td><b>(string)</b> "width: 100vw; height: 70vh;..."</td>
-            </tr>
-            <tr>
-              <td>zoomLevel</td>
-              <td>**(string number)** map zoom level</td>
-              <td><b>(string number)</b> "8" is default value https://docs.mapbox.com/help/glossary/zoom-level/</td>
+              <td>auto_direction_locations</td>
+              <td>Static direction from location index A to location index B</td>
+              <td><b>(string)</b> ex: "0,1", "0,2", "1,2"...</td>
             </tr>
           </table>
-          
-          <p class="text-large add-height-space"><b>📌 If you want to add more than 1 location point, following bellow properties</b></p>
-          
-          <table>
-            <tr>
-              <th>Function name</th>
-              <th>Description</th>
-              <th>Example value</th>
-            </tr>
-            <tr>
-              <td>number_of_location</td>
-              <td>Number of location you want to add in this map</td>
-              <td><b>(string number)</b> because <b>origin_lat</b> and <b>origin_long</b> is the 1 of location, so if you want add more location, the value should be from <b>"2"</b></td>
-            </tr>
-            <tr>
-              <td>lat1</td>
-              <td>Second location point <b>latitude</b> field name</td>
-              <td><b>(string)</b> latitude field name in model</td>
-            </tr>
-            <tr>
-              <td>long1</td>
-              <td>Second location point <b>longitude</b> field name</td>
-              <td><b>(string)</b> longitude field name in model</td>
-            </tr>
-          </table>
-          
-          <p>And if you want add more than 2 location just define number_of_location (remember number of location must include the origin location) and add dynamic lat and long field name: <b>lat1, long1, lat2, long2, lat3, long3...</b> (number of location you want to add is unlimited)</p>
-          
-          <p class="text-large add-height-space"><b>📌 If you want to custom title for marker</b></p>
-          
-          <table>
-            <tr>
-              <th>Function name</th>
-              <th>Description</th>
-              <th>Example value</th>
-            </tr>
-            <tr>
-              <td>origin_marker_title</td>
-              <td>Custom origin location's marker title</td>
-              <td><b>(string)</b> Name of location</td>
-            </tr>
-            <tr>
-              <td>marker_title1, marker_title2,... [marker_title{Number of index location}]</td>
-              <td>Custom dynamic location marker title</td>
-              <td><b>(string)</b> Name of location</td>
-            </tr>
-          </table>
-          
-          <p>Similar add more than 1 location properties desciption above, If you want to custom any text title for marker. You just need to add field with number of location index: <b>marker_title1,marker_title2,marker_title3...</b></p>
-          
-          <p class="text-large add-height-space"><b>📌 Dynamic config example</b></p>
-          
-          <img src="./integrate_ex_3.png" width="600" title="usage-example">
     </div>
-    
+
     <div>
         <p class="section-title">Credits & Support</p>
         <div class="line"></div>
