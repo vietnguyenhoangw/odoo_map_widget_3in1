@@ -5,8 +5,7 @@
 <b>:rotating_light:Noticed: </b> For using this direction feature, you need to integrate <b>[map_widget_3in1](https://developers.google.com/maps/documentation/javascript/get-api-key)</b> addon first.
 
 ## Demo
-
-<img src="./static/description/rec1.gif" width="500" title="map_widget-example"><img src="./static/description/rec2.gif" width="500" title="map_widget-example"><img src="./static/description/rec3.gif" width="500" title="map_widget-example">
+<img src="./static/description/rec1.gif" width="500" title="map-box"><img src="./static/description/rec2.gif" width="500" title="street-map"><img src="./static/description/rec3.gif" width="500" title="google-map">
 
 ## Installation
 
