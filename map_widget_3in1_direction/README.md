@@ -11,7 +11,9 @@
 ## Installation
 
 1. Put the <b>'map_widget_3in1_direction'</b> add-ons into your Odoo source code (same folder contain <b>map_widget_3in1</b>)
-	<img src="./static/description/integrate_ex_0.png" width="200" title="map_widget-example">
+
+	<img src="./static/description/integrate_ex_0.png" width="500" title="map_widget-example">
+ 
 2. Three options are prioritised as listed below.<br/>
 
 	#### :pushpin: Mapbox
@@ -37,7 +39,12 @@
 <img src="./static/description/integrate_ex_1.png" width="500" title="map_widget-example">
 
 ## Usage Example
-To add widget map direction, you need to have more than 2 of locations ([read properties create dynamic location in map_widget_3in1](https://developers.google.com/maps/documentation/javascript/get-api-key))
+#### To add widget map direction, you need to have more than 2 of locations ([read properties create dynamic location in map_widget_3in1](https://developers.google.com/maps/documentation/javascript/get-api-key))
+
+We have 2 of ways to direction form first location to second location.
+1. Auto direction
+<img src="./static/description/integrate_ex_2.png" width="500" title="map_widget-example">
+
 
 
 
