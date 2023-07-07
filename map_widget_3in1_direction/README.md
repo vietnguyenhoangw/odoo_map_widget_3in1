@@ -42,7 +42,7 @@
 
 We have 2 of ways to direction form first location to second location.</br>
 
-<b>1. Auto direction (static direction)</b></br>
+<b>1. Auto direction (static direction without controller)</b></br>
 Everything you need to do is add values for <b>auto_direction_locations</b>, the map will always drirect from A to B following location index values without controller. The values is string with 2 of location's index.</br>
 <b>Example:</b></br>
 auto_direction_locations="0,1" (direction from original location to location1)</br>
