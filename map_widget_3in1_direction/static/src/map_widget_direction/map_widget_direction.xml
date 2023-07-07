@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="map_widget_direction.MapWidget" owl="1">
+        <t t-out="state.html_map_widget_direction_tag"/>
+        <t t-if="!props.auto_direction_locations">
+            <div class="d-flex mt-4 mb-4">
+                <select class="form-control-selection" name="Start Point" t-on-change="onChangeStartPoint">
+                    <t t-foreach="state.startPoints" t-as="point" t-key="point.index">
+                        <option>
+                            <t t-esc="point.title"/>
+                        </option>
+                    </t>
+                </select>
+                <select class="form-control-selection ms-2" name="End Point" t-on-change="onChangeEndPoint">
+                    <t t-foreach="state.endPoints" t-as="point" t-key="point.index">
+                        <option>
+                            <t t-esc="point.title"/>
+                        </option>
+                    </t>
+                </select>
+                <button type="button" class="btn btn-sm btn-primary btn-direction ms-2" t-on-click="onPressDirection">Get Route</button>
+            </div>
+        </t>
+    </t>
+</templates>
