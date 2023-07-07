@@ -5,8 +5,6 @@
 <b>:rotating_light:Noticed: </b> For using this direction feature, you need to integrate <b>[map_widget_3in1](https://developers.google.com/maps/documentation/javascript/get-api-key)</b> addon first.
 
 ## Demo
-<img src="./static/description/mapbox.gif" width="500" title="map-box"><img src="./static/description/streetmap.gif" width="500" title="street-map"><img src="./static/description/ggmap.gif" width="500" title="google-map">
-
 
 ## Installation
 
@@ -39,68 +37,30 @@
 <img src="./static/description/integrate_ex_1.png" width="500" title="map_widget-example">
 
 ## Usage Example
-#### To add widget map direction, you need to have more than 2 of locations ([read properties create dynamic location in map_widget_3in1](https://developers.google.com/maps/documentation/javascript/get-api-key))
+#### To add widget map direction, you need to have more than 2 of locations ([read properties section - create dynamic location in map_widget_3in1](https://developers.google.com/maps/documentation/javascript/get-api-key))
 
-We have 2 of ways to direction form first location to second location.
-1. Auto direction
+We have 2 of ways to direction form first location to second location.</br>
+
+<b>1. Auto direction (static direction)</b></br>
+Everything you need to do is add values for <b>auto_direction_locations</b>. The values is string with 2 of location's index.</br>
+<b>Example:</b></br>
+auto_direction_locations="0,1" (direction from original location to location1)</br>
+auto_direction_locations="0,2" (direction from original location to location2)</br>
+auto_direction_locations="1,2" (direction from location1 to location2)</br>
 <img src="./static/description/integrate_ex_2.png" width="500" title="map_widget-example">
 
+<b>2. Direction with controller </b></br>
+Just remove <b>auto_direction_locations</b> properties. We can using dynamic direction with controller UI.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1. Add 2 fields are lat and long (following bellow example are main_latitude and main_longitude).
-2. Create <widget> tag and add properties for this widget (Properties Detail). In below example we have props map_id, name, style, origin_lat and origin_long
-
-<b>:triangular_flag_on_post:Noticed: </b> We need to define the field with lat and long first, then put the lat and long into map widget with the same name value.
-<br/>
-<img src="./static/description/integrate_ex_2.png" width="600" title="usage-example">
-
+<img src="./static/description/controller1.png" width="500" title="map_widget-example">
+<img src="./static/description/controller2.png" width="500" title="map_widget-example">
+<img src="./static/description/controller3.png" width="500" title="map_widget-example">
 
 ## Properties
-
+This <b>map_widget_3in1_direction</b> addons have common properties with <b>map_widget_3in1</b>, so you can read detail addons's properties <b>[here](https://developers.google.com/maps/documentation/javascript/get-api-key)</b>
 | Function name  | Description               | Example value |
 | --------------------- | ------------------------------|----------------------|
-|map_id    | Map key id   | **(string number)** "0" is default value  |
-|name   | Widget's name   | **(string)** must be add-ons's name "map_widget"   |
-|origin_lat   | First location point **latitude** field name | **(string)** latitude field name in model  |
-|origin_long   | First location point **longitude** field name  | **(string)** longitude field name in model  |
-|style   | HTML style value  | **(string)** "width: 100vw; height: 70vh;..."  |
-|zoomLevel   | **(string number)** map zoom level | **(string number)** "8" is default value https://docs.mapbox.com/help/glossary/zoom-level/ |
-
-**If you want to add more than 1 location point, following bellow properties**
-
-| Function name  | Description  |  Example value |
-| ------------ | ------------ | ------------ |
-|  number_of_location | Number of location you want to add in this map | **(string number)** because **origin_lat** and **origin_long** is the 1 of location, so if you want add more location, the value should be from **"2"**   |
-|  lat1 | Second location point **latitude** field name  | **(string)** latitude field name in model   |
-|  long1 |  Second location point **longitude** field name  | **(string)** longitude field name in model  |
-
-And if you want add more than 2 location just define **number_of_location** (remember number of location must include the **origin location**) and add dynamic **lat** and **long** field name:  **lat1**, **long1**, **lat2**, **long2**, **lat3**, **long3**... (number of location you want to add is unlimited)
-	
-**If you want to custom title for marker**
-
-| Function name  | Description  |  Example value |
-| ------------ | ------------ | ------------ |
-|  origin_marker_title | Custom origin location's marker title | **(string)** Name of location  |
-|  marker_title1, marker_title2,... [marker_title{Number of index location}] | Custom dynamic location marker title  | **(string)**  Name of location  |
-
-Similar add more than 1 location properties desciption above, If you want to custom any text title for marker. You just need to add field with number of location index: **marker_title1**,**marker_title2**,**marker_title3**... </br>
-#### **Dynamic config example**
-<img src="./static/description/integrate_ex_3.png" width="600" title="usage-example">
+|auto_direction_locations    |  Static direction from location index A to location index B  | **(string)** ex: "0,1", "0,2", "1,2"...   |
 
 ## Credits & Support
 - vietnguyenhoangw <[vietnguyenhoangw@gmail.com](vietnguyenhoangw@gmail.com)>
