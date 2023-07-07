@@ -135,6 +135,7 @@ class MapWidgetDirection extends Component {
 			endLocationIndex: 0,
 			directionsService: null,
 			directionsRenderer: null,
+			showDirectionController: this.props.auto_direction_locations.length <= 0
 		});
 		this.map;
 		this.markersOnMap = [];
@@ -154,18 +155,14 @@ class MapWidgetDirection extends Component {
 
 		onWillUpdateProps(async () => {
 			if (this.props.auto_direction_locations.length <= 0) {
-				if (this.map) { await this.onDrawMarker(); }
+				await this.onPressDirection();
 			} else {
 				await this.onPressDirection();
 			}
 		})
 
 		onMounted(async () => {
-			await this.loadMapByType().then(async () => {
-				if (this.props.auto_direction_locations.length > 0) {
-					await this.onPressDirection();
-				}
-			})
+			await this.loadMapByType()
 		})
 
 		onError(() => {
@@ -534,7 +531,7 @@ MapWidgetDirection.extractProps = ({ attrs }) => {
 		origin_marker_title: origin_marker_title,
 		style: style,
 		zoomLevel: zoomLevel,
-		auto_direction_locations: auto_direction_locations?.split(',').map( Number ),
+		auto_direction_locations: auto_direction_locations ? auto_direction_locations?.split(',').map( Number ) : [],
 	};
 };
 registry.category("view_widgets").add("map_widget_3in1_direction", MapWidgetDirection);
