@@ -154,11 +154,7 @@ class MapWidgetDirection extends Component {
 		});
 
 		onWillUpdateProps(async () => {
-			if (this.props.auto_direction_locations.length <= 0) {
-				await this.onPressDirection();
-			} else {
-				await this.onPressDirection();
-			}
+			await this.onPressDirection();
 		})
 
 		onMounted(async () => {
